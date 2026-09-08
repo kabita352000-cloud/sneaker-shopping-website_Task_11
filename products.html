@@ -1,67 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Products</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const productPrice = 1999; 
+        const mainPriceHeading = document.querySelector(".product-details h2");
+        const addToCartButton = document.querySelector(".button");
+
+        function updateProductPrice() {
+          const qty = Number(quantityInput.value);
+          const totalCost = productPrice * qty;
+          mainPriceHeading.textContent = "₹" + totalCost.toLocaleString('en-IN');
+        }
+
+        // Sync input changes on the product page screen
+        quantityInput.addEventListener("input", function () {
+          if (quantityInput.value < 1 || quantityInput.value === "") {
+            quantityInput.value = 1;
+          }
+          updateProductPrice();
+        });
+
+        // CRITICAL ACTION: Save the quantity to memory when navigating away
+        addToCartButton.addEventListener("click", function () {
+          localStorage.setItem("shared_quantity", quantityInput.value);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
     <!-- Navbar -->
-
     <nav class="navbar">
-
-        <div class="logo">
-            <h2>Thala 7</h2>
-        </div>
-
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="cart.html">Cart</a></li>
-            <li><a href="payment.html">Payment</a></li>
-        </ul>
-
-        <div class="icons">
-            🔍 🛒 👤
-        </div>
-
+      <div class="logo">
+        <h2>Thala 7</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="payment.html">Payment</a></li>
+      </ul>
+      <div class="icons">🔍 🛒 👤</div>
     </nav>
 
     <!-- Product Section -->
-
     <section class="product">
+      <div class="product-image">
+        <img src="images/shoe1.jpg" alt="Seven shoe" />
+      </div>
 
-        <div class="product-image">
+      <div class="product-details">
+        <h1>Seven By M.S. Dhoni Shoes</h1>
+        <h2>₹1,999</h2>
+        <p>These shoes are comfortable and stylish. They are perfect for running, walking and daily use.</p>
+        <p class="rating">⭐⭐⭐⭐⭐ 4.5 Rating</p>
 
-            <img src="images/shoe1.jpg" alt="Shoe">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1" />
+        <br /><br />
 
-        </div>
-
-        <div class="product-details">
-
-            <h2>Seven By M.S. Dhoni Shoes</h2>
-
-            <h3>₹1,999</h3>
-
-            <p>
-                These shoes are comfortable and stylish. They are perfect for
-                running, walking and daily use.
-            </p>
-
-            <label>Quantity :</label>
-            <input type="number" value="1" min="1">
-
-            <br><br>
-
-            <a href="cart.html">
-                <button>Add to Cart</button>
-            </a>
-
-        </div>
-
+        <a href="cart.html" class="button"> Add to Cart </a>
+      </div>
     </section>
 
-</body>
+    <!-- Scrolling Gallery -->
+    <section class="gallery-section">
+      <h2>Product Gallery</h2>
+      <div class="gallery">
+        <img src="images/shoe1.jpg" alt="Shoe image 1" />
+        <img src="images/shoe1.jpg" alt="Shoe image 2" />
+        <img src="images/shoe1.jpg" alt="Shoe image 3" />
+        <img src="images/shoe1.jpg" alt="Shoe image 4" />
+        <img src="images/shoe1.jpg" alt="Shoe image 5" />
+      </div>
+    </section>
+  </body>
 </html>

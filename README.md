@@ -1,29 +1,20 @@
 # Thala 7 Sneaker Store
 
-Thala 7 Sneaker Store is a simple sneaker shopping website made using **HTML and CSS**.
+Thala 7 Sneaker Store is a simple shoe shopping website made with **HTML, CSS, and basic JavaScript**.
 
-This project is created for practicing basic web development concepts like HTML pages, navigation, images, buttons, and simple website layout.
+Thala 7 Sneaker Store is a responsive, multi-page front-end web development project modeled after a modern sneaker e-commerce platform.
 
 ## Features
 
-* Home page
-* Products page
-* Shopping cart page
-* Payment page
-* Navigation bar
-* Product image
-* Product price and details
-* Quantity input
-* Add to Cart button
-* Proceed to Payment button
-* Simple and beginner-friendly design
+* 4 web pages: Home, Products, Cart, and Payment.
+* Navigation bar to click and switch pages.
+* Shoe image with a scrolling gallery underneath it.
+* Quantity box that changes the total price when you type numbers.
+* Remove button that deletes the shoe from the cart.
+* Checkout form for typing email and fake credit card info.
 
-## Technologies Used
 
-* HTML
-* CSS
-
-## Project Structure
+## Project Files
 
 Thala-7-Sneaker-Store/
 │
@@ -36,68 +27,32 @@ Thala-7-Sneaker-Store/
 └── images/
     └── shoe1.jpg
 
-## Pages
+## Page Details
 
-### Home Page
+### Home Page (`index.html`)
+The main entry page. It has a logo, links to other pages, a main shoe picture, a Shop Now button, and small boxes at the bottom showing user ratings and store information.
 
-The home page contains:
+### Products Page (`products.html`)
+Shows the shoe name, price (₹1,999), rating, and details. It has an input box to choose how many shoes you want, a row of scrollable pictures at the bottom, and an Add to Cart button.
 
-* Website logo
-* Navigation menu
-* Hero section
-* Shoe image
-* Shop Now button
-* Customer reviews
-* Customer count
-* Quality information
-* Rating
+### Cart Page (`cart.html`)
+Has a two-column layout. The left side has a table showing the shoe, quantity box, price, and a red Remove button. The right side has a coupon box, a bill summary, and a Pay Now button.
 
-### Products Page
+### Payment Page (`payment.html`)
+The checkout page. The left side has a form to type your email, pick a payment method (Cards/Crypto/Bank), and type card numbers. The right side shows your final bill.
 
-The products page shows:
+## How the JavaScript Works
 
-* Shoe image
-* Shoe name
-* Price
-* Product description
-* Quantity input
-* Add to Cart button
+1. Changing Prices:** When you type a new number in the quantity box, the script multiplies ₹1,999 by that number to show the correct subtotal.
+2. Saving Numbers (`localStorage`):** The pages use browser memory to pass numbers. If you pick 2 shoes on the product page, it saves that number and shows 2 shoes in your cart and payment pages automatically.
+3. Delete Row:** Clicking the red Remove button deletes the shoe row from the page and sets all the bill amounts back to ₹0.
 
-### Cart Page
+## How to Run the Website
 
-The cart page shows:
-
-* Selected shoe
-* Price
-* Quantity
-* Total price
-* Proceed to Payment button
-
-### Payment Page
-
-The payment page is used as the next step after the cart page.
-
-## How to Run
-
-1. Download or clone this project.
-2. Open the project folder.
-3. Make sure the `images` folder contains `shoe1.jpg`.
-4. Open `index.html` in a browser.
-5. You can navigate between the pages using the navbar.
-
-## Learning Purpose
-
-This project was created to practice:
-
-* HTML structure
-* CSS styling
-* Links between multiple HTML pages
-* Images
-* Buttons
-* Forms and input fields
-* Basic website layout
-* Navigation bar
+1. Download this project folder to your computer.
+2. Open the folder and check that your `images` folder has the `shoe1.jpg` file inside it.
+3. Double-click `index.html` to open it in your regular web browser.
+4. Click the links in the top menu to move between pages.
 
 ## Author
-
-Created as a beginner web development practice project.
+kabita kumari

@@ -1,63 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const quantity = document.getElementById("quantity");
+        const productPrice = 1999;
+
+        const productPriceElement = document.getElementById("product-price");
+        const subtotalElement = document.getElementById("subtotal");
+        const taxesElement = document.getElementById("taxes");
+        const discountElement = document.getElementById("discount");
+        const totalElement = document.querySelector(".summary .total span:last-child");
+        
+        const removeButton = document.querySelector(".remove");
+        const productRow = document.querySelector("tbody tr");
+
+        function updateTotals(qty) {
+          const subtotal = productPrice * qty;
+          const taxes = qty > 0 ? 100 : 0;
+          const discount = qty > 0 ? 100 : 0;
+          const total = subtotal + taxes - discount;
+
+          productPriceElement.textContent = "₹" + subtotal.toLocaleString('en-IN');
+          subtotalElement.textContent = "₹" + subtotal.toLocaleString('en-IN');
+          taxesElement.textContent = "₹" + taxes;
+          discountElement.textContent = qty > 0 ? "- ₹" + discount : "₹0";
+          totalElement.textContent = "₹" + total.toLocaleString('en-IN');
+        }
+
+        // Read the stored count values from memory
+        const savedQuantity = localStorage.getItem("shared_quantity");
+        if (savedQuantity && quantity) {
+          quantity.value = savedQuantity;
+        }
+
+        updateTotals(Number(quantity.value));
+
+        // When quantity changes inside the cart, save the new count down to memory!
+        quantity.addEventListener("input", function () {
+          let qty = Number(quantity.value);
+          
+          if (qty < 1 || quantity.value === "") {
+            qty = 1;
+            quantity.value = 1;
+          }
+          
+          updateTotals(qty);
+          localStorage.setItem("shared_quantity", qty); // Update memory instantly
+        });
+
+        removeButton.addEventListener("click", function () {
+          productRow.remove();
+          localStorage.setItem("shared_quantity", 0); // Clear items out of memory
+
+          productPriceElement.textContent = "₹0";
+          subtotalElement.textContent = "₹0";
+          taxesElement.textContent = "₹0";
+          discountElement.textContent = "₹0";
+          totalElement.textContent = "₹0";
+        });
+      });
+    </script>
+  </head>
+
+  <body>
     <!-- Navbar -->
-
     <nav class="navbar">
-
-        <div class="logo">
-            <h2>Thala 7</h2>
-        </div>
-
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="cart.html">Cart</a></li>
-            <li><a href="payment.html">Payment</a></li>
-        </ul>
-
-        <div class="icons">
-            🔍 🛒 👤
-        </div>
-
+      <div class="logo">
+        <h2>Thala 7</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="payment.html">Payment</a></li>
+      </ul>
+      <div class="icons">🔍 🛒 👤</div>
     </nav>
 
-    <!-- Cart Section -->
-
-    <section class="cart">
-
-        <h1>Shopping Cart</h1>
-
-        <div class="cart-item">
-
-            <img src="images/shoe1.jpg" alt="Shoe">
-
-            <div class="cart-details">
-
-                <h2>Seven By M.S. Dhoni Shoes</h2>
-
-                <p>Price : ₹1,999</p>
-
-                <p>Quantity : 1</p>
-
-                <h3>Total : ₹1,999</h3>
-
-                <a href="payment.html">
-                    <button>Proceed to Payment</button>
-                </a>
-
-            </div>
-
+    <!-- Cart -->
+    <section class="cart-page">
+      <h1>Shopping Cart</h1>
+      <div class="cart-container">
+        <!-- LEFT SIDE -->
+        <div class="cart-left">
+          <h2>Your Products</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="product-name">
+                    <img src="images/shoe1.jpg" alt="Shoe" />
+                    <span> Seven By M.S. Dhoni Shoes </span>
+                  </td>
+                  <td>
+                    <input type="number" id="quantity" value="1" min="1" />
+                  </td>
+                  <td id="product-price">₹1,999</td>
+                  <td>
+                    <button class="remove">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="products.html" class="continue-shopping">← Continue Shopping</a>
         </div>
 
+        <!-- RIGHT SIDE -->
+        <div class="cart-right">
+          <h2>Order Summary</h2>
+          <div class="coupon">
+            <h3>Have a Coupon?</h3>
+            <div class="coupon-box">
+              <input type="text" placeholder="Enter coupon" />
+              <button>Apply</button>
+            </div>
+          </div>
+          <div class="summary">
+            <div><span>Subtotal</span><span id="subtotal">₹1,999</span></div>
+            <div><span>Taxes</span><span id="taxes">₹100</span></div>
+            <div><span>Discount</span><span id="discount">- ₹100</span></div>
+            <hr />
+            <div class="total"><span>Total</span><span>₹1,999</span></div>
+          </div>
+          <a href="payment.html" class="pay-button"> Pay Now </a>
+          <div class="razorpay">
+            <p>Secure payment powered by</p>
+            <div class="payment-icons">💳 💰 🏦</div>
+            <p>Razorpay</p>
+          </div>
+        </div>
+      </div>
     </section>
-
-</body>
+  </body>
 </html>

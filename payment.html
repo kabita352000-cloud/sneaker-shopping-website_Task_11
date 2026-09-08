@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+
+    <title>Payment</title>
+
     <link rel="stylesheet" href="style.css">
+    
+    <script>
+      // Wait for the elements to fully build on the viewport before targeting
+      document.addEventListener("DOMContentLoaded", function () {
+        const productPrice = 1999;
+
+        // Target your exact layout elements from the order summary box
+        const quantityTextElement = document.querySelector(".payment-product div p:nth-of-type(1)");
+        
+        const subtotalSpan = document.querySelector(".payment-summary div:nth-child(1) span:last-child");
+        const taxesSpan = document.querySelector(".payment-summary div:nth-child(2) span:last-child");
+        const totalSpan = document.querySelector(".payment-summary .total span:last-child");
+
+        // 1. Fetch the exact selected items figure out of browser memory
+        let currentQty = localStorage.getItem("shared_quantity");
+
+        // Fallback safety catch: set to 1 if memory slot is uninitialized
+        if (!currentQty || currentQty < 1) {
+          currentQty = 1;
+        }
+
+        // 2. Perform the matching calculation structures
+        const subtotal = productPrice * Number(currentQty);
+        const taxes = Number(currentQty) > 0 ? 100 : 0;
+        const total = subtotal + taxes; // Shipping is set as Free in your structure
+
+        // 3. Dynamically insert the matching quantities and mathematical results onto the screen
+        if (quantityTextElement) {
+          quantityTextElement.textContent = "Quantity: " + currentQty;
+        }
+
+        if (subtotalSpan) {
+          subtotalSpan.textContent = "₹" + subtotal.toLocaleString('en-IN');
+        }
+
+        if (taxesSpan) {
+          taxesSpan.textContent = "₹" + taxes.toLocaleString('en-IN');
+        }
+
+        if (totalSpan) {
+          totalSpan.textContent = "₹" + total.toLocaleString('en-IN');
+        }
+      });
+    </script>
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -29,29 +77,237 @@
 
     </nav>
 
-    <!-- Cart Section -->
 
-    <section class="cart">
+    <!-- Payment Page -->
 
-        <h1>Shopping Cart</h1>
+    <section class="payment-page">
 
-        <div class="cart-item">
+        <h1>Checkout</h1>
 
-            <img src="images/shoe1.jpg" alt="Shoe">
 
-            <div class="cart-details">
+        <div class="payment-container">
 
-                <h2>Seven By M.S. Dhoni Shoes</h2>
 
-                <p>Price : ₹1,999</p>
+            <!-- LEFT SIDE -->
 
-                <p>Quantity : 1</p>
+            <div class="payment-left">
 
-                <h3>Total : ₹1,999</h3>
+                <h2>Payment Details</h2>
 
-                <a href="payment.html">
-                    <button>Proceed to Payment</button>
-                </a>
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Payment Methods -->
+
+                <h3>Payment Method</h3>
+
+                <div class="payment-methods">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="payment"
+                            checked
+                        >
+                        Cards
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="payment"
+                        >
+                        Crypto
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="payment"
+                        >
+                        Bank
+                    </label>
+
+                </div>
+
+
+                <!-- Card Details -->
+
+                <div class="card-section">
+
+                    <h3>Card Details</h3>
+
+
+                    <div class="form-group">
+
+                        <label for="card-number">
+                            Card Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="card-number"
+                            placeholder="1234 5678 9012 3456"
+                        >
+
+                    </div>
+
+
+                    <div class="card-row">
+
+                        <div class="form-group">
+
+                            <label for="expiry">
+                                Expiry Date
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expiry"
+                                placeholder="MM/YY"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="cvv">
+                                CVV
+                            </label>
+
+                            <input
+                                type="password"
+                                id="cvv"
+                                placeholder="123"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-row">
+
+                        <div class="form-group">
+
+                            <label for="country">
+                                Country
+                            </label>
+
+                            <input
+                                type="text"
+                                id="country"
+                                placeholder="India"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="zip">
+                                ZIP Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="zip"
+                                placeholder="123456"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button class="payment-button">
+                    Complete Payment
+                </button>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="payment-right">
+
+                <h2>Order Summary</h2>
+
+                <div class="payment-product">
+
+                    <img
+                        src="images/shoe1.jpg"
+                        alt="Shoe"
+                    >
+
+                    <div>
+
+                        <h3>
+                            Seven By M.S. Dhoni Shoes
+                        </h3>
+
+                        <p>
+                            Quantity: 1
+                        </p>
+
+                        <p>
+                            ₹1,999
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="payment-summary">
+
+                    <div>
+                        <span>Subtotal</span>
+                        <span>₹1,999</span>
+                    </div>
+
+                    <div>
+                        <span>Taxes</span>
+                        <span>₹100</span>
+                    </div>
+
+                    <div>
+                        <span>Shipping</span>
+                        <span>Free</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="total">
+                        <span>Total</span>
+                        <span>₹2,099</span>
+                    </div>
+
+                </div>
+
+
+                <p class="secure">
+                    🔒 Your payment information is secure.
+                </p>
 
             </div>
 
@@ -60,4 +316,5 @@
     </section>
 
 </body>
+
 </html>
