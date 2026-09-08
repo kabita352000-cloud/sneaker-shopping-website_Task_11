@@ -13,7 +13,6 @@ Thala 7 Sneaker Store is a responsive, multi-page front-end web development proj
 * Remove button that deletes the shoe from the cart.
 * Checkout form for typing email and fake credit card info.
 
-
 ## Project Files
 
 Thala-7-Sneaker-Store/

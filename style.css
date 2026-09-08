@@ -389,7 +389,6 @@ td input {
 .summary, .payment-summary {
     margin-top: 20px;
 }
-
 .summary div, .payment-summary div {
     display: flex;
     justify-content: space-between;
